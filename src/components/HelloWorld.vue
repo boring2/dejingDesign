@@ -80,16 +80,25 @@
         </a>
       </li>
     </ul>
+    <carousel />
+    <carousel2 />
   </div>
 </template>
 
 <script>
+import Carousel from './Carousel.vue'
+import Carousel2 from './Carousel2.vue'
+
 export default {
   name: 'HelloWorld',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  components: {
+    Carousel,
+    Carousel2
   }
 }
 </script>
