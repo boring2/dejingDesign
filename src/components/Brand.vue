@@ -1,26 +1,27 @@
 <template>
-  <div class="header">
-    德境设计
+  <div class="brand">
+    <carousel2 />
   </div>
 </template>
 
 <script>
+
+import Carousel2 from './Carousel2.vue'
+
 export default {
-  name: 'HelloWorld',
+  name: 'Brand',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  components: {
+    Carousel2
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
-.header {
-  height: 50px;
-  background: red;
-  line-height: 50px;
-  text-align: center;
-}
+<style scoped>
+
 </style>

@@ -1,9 +1,8 @@
 <template>
-  <div class="block">
-    <span class="demonstration" v-on:click="ccc">默认 Hover 指示器触发</span>
-    <el-carousel height="150px" v-on:change="aaa" ref="carousel">
+  <div class="carousel">
+    <el-carousel v-on:change="aaa" ref="carousel">
       <el-carousel-item v-for="item in 4" :key="item">
-        <h3 v-on:touchmove="ddd">{{ item }}</h3>
+        <h3 v-on:touchmove="ddd">我是图片{{ item }}</h3>
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -26,13 +25,23 @@ export default {
   }
 }
 </script>
-<style>
-  .el-carousel__item h3 {
+<style lang="scss">
+  .carousel .el-carousel__container {
+    height: calc(100vh - 50px - 38px);
+    @media (max-width: 600px) {
+      height: calc(100vh - 50px);
+    }
+  }
+  .carousel .el-carousel__item h3 {
     color: #475669;
     font-size: 14px;
     opacity: 0.75;
-    line-height: 150px;
+    line-height: calc(100vh - 50px - 38px);
     margin: 0;
+    text-align: center;
+    @media (max-width: 600px) {
+      line-height: calc(100vh - 50px);
+    }
   }
 
   .el-carousel__item:nth-child(2n) {

@@ -22,5 +22,7 @@ export default {
 <style>
 
 @import './css/normalize.css';
-
+body {
+  min-width: 300px;
+}
 </style>

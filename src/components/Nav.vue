@@ -8,11 +8,14 @@
       </div>
     </div>
     <ul class="nav-ul" v-bind:class="{show: showMenu}">
-      <li>主页</li>
-      <li>餐厅酒店</li>
-      <li>品牌展示</li>
-      <li>私人豪宅</li>
-      <li>关于我们</li>
+      <li v-for="(list, index) in routes" :to="list.href" :key="index" v-on:click="hideMenu">
+        <router-link :to="list.href">{{list.title}}</router-link>
+      </li>
+      <!-- <li><router-link to="/">主页</router-link></li>
+      <li><router-link to="/">餐厅酒店</router-link></li>
+      <li><router-link to="/brand">品牌展示</router-link></li>
+      <li><router-link to="/">私人豪宅</router-link></li>
+      <li><router-link to="/about">关于我们</router-link></li> -->
     </ul>
   </div>
 </template>
@@ -21,6 +24,13 @@
 export default {
   data () {
     return {
+      routes: [
+        { href: '/', title: '主页' },
+        { href: '/rest', title: '餐厅酒店' },
+        { href: '/brand', title: '品牌展示' },
+        { href: '/self', title: '私人豪宅' },
+        { href: '/about', title: '关于我们' }
+      ],
       showMenu: false
     }
   },
@@ -28,6 +38,10 @@ export default {
     toggleMenu () {
       this.showMenu = !this.showMenu
       console.log('toggleMenu')
+    },
+    hideMenu () {
+      this.showMenu = false
+      console.log('hidemenu')
     }
   }
 }
@@ -114,10 +128,17 @@ export default {
   align-items: center;
   justify-content: center;
   margin: 0;
+  z-index: 100;
   li {
     display: inline-block;
     text-align: center;
     padding: 10px;
+    a {
+      text-decoration: none;
+      &.router-link-exact-active.router-link-active {
+        color: red;
+      }
+    }
   }
   @media (max-width: 600px) {
     display: none;
