@@ -37,10 +37,12 @@ export default {
         {id: 9, gallery: 'a.png'}
       ],
       transformCount: 0,
-      playListTimer: null
+      playListTimer: null,
+      initCount: 4
     }
   },
   mounted () {
+    this.setInitCount()
     let self = this
     window.onresize = function () {
       let width = (document.body.clientWidth - 60) / 4
@@ -48,11 +50,21 @@ export default {
         width = document.body.clientWidth - 60
       }
       self.$refs.playbackList.style.width = self.playbackLists.length * width + 'px'
-      self.$refs.playbackList.style.transform = `translateX(${-self.transformCount * width}px)`
-      self.$refs.playbackList.style.webkitTransform = `translateX(${-self.transformCount * width}px)`
+      self.$refs.playbackList.style.transform = `translateX(0)`
+      self.$refs.playbackList.style.webkitTransform = `translateX(0)`
+      self.transformCount = 0
+      self.setInitCount()
     }
+    this.setPlayListTimer()
   },
   methods: {
+    setInitCount () {
+      if (document.body.clientWidth <= 600) {
+        this.initCount = 1
+      } else {
+        this.initCount = 4
+      }
+    },
     changeTransform (e, isLeft) {
       clearInterval(this.playListTimer)
       this.playListTimer = null
@@ -95,13 +107,6 @@ export default {
         webkitTransform: `translateX(${-this.transformCount * width}px)`,
         transform: `translateX(${-this.transformCount * width}px)`
       }
-    },
-    initCount () {
-      if (document.body.clientWidth <= 600) {
-        return 1
-      } else {
-        return 4
-      }
     }
   }
 }
@@ -133,6 +138,7 @@ export default {
       }
       a {
         display: inline-block;
+        color: black;
         &:visited {
           color: black;
         }
