@@ -52,19 +52,19 @@ export default {
 
 @keyframes rotationTop {
   to {
-    transform: rotate(45deg) translateY(5px);
+    transform: rotate(45deg) translateY(4px);
   }
 }
 
 @keyframes rotationBottom {
   to {
-    transform: rotate(-45deg) translateY(-5px);
+    transform: rotate(-45deg) translateY(-4px);
   }
 }
 
 @keyframes clearRotationTop {
   from {
-    transform: rotate(45deg) translateY(5px);
+    transform: rotate(45deg) translateY(4px);
   }
   to {
     transform: rotate(0deg) translateY(0px);
@@ -73,7 +73,7 @@ export default {
 
 @keyframes clearRotationBottom {
   from {
-    transform: rotate(-45deg) translateY(-5px);
+    transform: rotate(-45deg) translateY(-4px);
   }
   to {
     transform: rotate(0deg) translateY(0px);
@@ -82,13 +82,14 @@ export default {
 
 .nav {
   position: relative;
+  background-color: #E5E0D6;
 }
 .menu-han {
   display: none;
   @media (max-width: 600px) {
     position: fixed;
     right: 10px;
-    top: 10px;
+    top: 15px;
     display: inline-block;
     .border-wrap {
       display: flex;
@@ -97,10 +98,10 @@ export default {
     }
     .border {
       display: inline-block;
-      width: 25px;
-      height: 2px;
+      width: 20px;
+      height: 1px;
       margin: 5px 0 0 0;
-      background-color: black;
+      background-color: #676560;
     }
     .border-top {
       animation: 0.25s clearRotationTop forwards;
@@ -129,14 +130,21 @@ export default {
   justify-content: center;
   margin: 0;
   z-index: 100;
+  ul {
+    margin: 0;
+  }
   li {
     display: inline-block;
     text-align: center;
     padding: 10px;
+    font-size: 12px;
+    color: #8C8A86;
     a {
       text-decoration: none;
+      color: #8C8A86;
+      display: block;
       &.router-link-exact-active.router-link-active {
-        color: red;
+        color: #474440;
       }
     }
   }
@@ -145,6 +153,8 @@ export default {
     li {
       display: block;
       width: 100%;
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
     &.show {
       position: absolute;
@@ -152,10 +162,10 @@ export default {
       left: 0;
       flex-direction: column;
       display: flex;
-      height: 100vh;
+      height: calc(100vh - 50px);
       width: 100%;
-      justify-content: flex-start;
-      background: #fff;
+      justify-content: center;
+      background-color: #EAE6DE;
       overflow: hidden;
     }
   }

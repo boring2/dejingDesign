@@ -8,7 +8,11 @@
     <div class="playback-inner">
       <div class="playback-list" :style="playbackListStyle" ref="playbackList">
         <router-link v-for="(list, index) in playbackLists" :key="index" :to="'/brand'+'/' + list.id">
-          <div class="img" style="display: inline-block;" ref="refImg">我是图片{{list.id}}</div>
+          <div class="img" style="display: inline-block;" ref="refImg" :style="{backgroundImage: 'url(' + list.gallery + ')'}">
+            <span class="title">
+              {{list.title}}
+            </span>
+          </div>
           <!-- <img :src="list.gallery"> -->
         </router-link>
       </div>
@@ -22,19 +26,23 @@
 </template>
 
 <script>
+import rest1 from '../assets/rest.png'
+import rest2 from '../assets/rest2.png'
+import rest3 from '../assets/rest3.png'
+import rest4 from '../assets/rest4.png'
 export default {
   data () {
     return {
       playbackLists: [
-        {id: 1, gallery: 'a.png'},
-        {id: 2, gallery: 'a.png'},
-        {id: 3, gallery: 'a.png'},
-        {id: 4, gallery: 'a.png'},
-        {id: 5, gallery: 'a.png'},
-        {id: 6, gallery: 'a.png'},
-        {id: 7, gallery: 'a.png'},
-        {id: 8, gallery: 'a.png'},
-        {id: 9, gallery: 'a.png'}
+        {id: 1, gallery: rest1, title: '月星环球港五月罗马'},
+        {id: 2, gallery: rest2, title: '上瘾水产'},
+        {id: 3, gallery: rest3, title: '上海黄山酒店'},
+        {id: 4, gallery: rest4, title: '上海建国西路'},
+        {id: 5, gallery: rest1, title: '上海建国西路'},
+        {id: 6, gallery: rest2, title: '上海建国西路'},
+        {id: 7, gallery: rest3, title: '上海建国西路'},
+        {id: 8, gallery: rest4, title: '上海建国西路'},
+        {id: 9, gallery: rest1, title: '上海建国西路'}
       ],
       transformCount: 0,
       playListTimer: null,
@@ -45,11 +53,16 @@ export default {
     this.setInitCount()
     let self = this
     window.onresize = function () {
-      let width = (document.body.clientWidth - 60) / 4
+      let width = (document.body.clientWidth - 30) / 4
+      let playBackWidth = self.playbackLists.length * width + (self.playbackLists.length - 1) * 10 + 'px'
       if (document.body.clientWidth <= 600) {
-        width = document.body.clientWidth - 60
+        width = document.body.clientWidth
+        playBackWidth = self.playbackLists.length * width + 'px'
       }
-      self.$refs.playbackList.style.width = self.playbackLists.length * width + 'px'
+      if (!self.$refs.playbackLists) {
+        return
+      }
+      self.$refs.playbackList.style.width = playBackWidth
       self.$refs.playbackList.style.transform = `translateX(0)`
       self.$refs.playbackList.style.webkitTransform = `translateX(0)`
       self.transformCount = 0
@@ -88,6 +101,7 @@ export default {
       }
     },
     setPlayListTimer () {
+      // return
       this.playListTimer = setInterval(() => {
         if (this.transformCount >= this.playbackLists.length - this.initCount) {
           return
@@ -98,14 +112,22 @@ export default {
   },
   computed: {
     playbackListStyle () {
-      let width = (document.body.clientWidth - 60) / 4
-      if (document.body.clientWidth <= 600) {
-        width = document.body.clientWidth - 60
-      }
-      return {
-        width: this.playbackLists.length * width + 'px',
-        webkitTransform: `translateX(${-this.transformCount * width}px)`,
-        transform: `translateX(${-this.transformCount * width}px)`
+      if (document.body.clientWidth > 600) {
+        let width = (document.body.clientWidth - 30) / 4
+        let playBackWidth = this.playbackLists.length * width + (this.playbackLists.length - 1) * 10 + 'px'
+        return {
+          width: playBackWidth,
+          webkitTransform: `translateX(${-this.transformCount * width - this.transformCount * 10}px)`,
+          transform: `translateX(${-this.transformCount * width - this.transformCount * 10}px)`
+        }
+      } else {
+        let width = document.body.clientWidth
+        let playBackWidth = this.playbackLists.length * width + 'px'
+        return {
+          width: playBackWidth,
+          webkitTransform: `translateX(${-this.transformCount * width}px)`,
+          transform: `translateX(${-this.transformCount * width}px)`
+        }
       }
     }
   }
@@ -116,6 +138,7 @@ export default {
       position: relative;
       overflow:hidden;
       height: calc(100vh - 50px - 38px);
+      background-color: #DEDEDE;
       @media (max-width: 600px) {
         height: calc(100vh - 50px);
       }
@@ -124,7 +147,6 @@ export default {
     .playback {
       align-items: center;
       height: calc(100vh - 50px - 38px);
-      margin: 0 30px;
       @media (max-width: 600px) {
         height: calc(100vh - 50px);
       }
@@ -139,21 +161,38 @@ export default {
       a {
         display: inline-block;
         color: black;
+        &:not(:first-child) {
+          margin-left: 10px;
+          @media (max-width: 600px) {
+            margin-left: 0;
+          }
+        }
         &:visited {
           color: black;
         }
       }
       .img {
         float: left;
-        width: calc((100vw - 60px) / 4);
+        // 100vw 减去左右两遍箭头的60 再减掉图片间距离30
+        width: calc((100vw - 30px) / 4);
         height: calc(100vh - 50px - 38px);
-        line-height: calc(100vh - 50px - 38px);
         text-align: center;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
         // border-right: 1px solid;
         @media (max-width: 600px) {
           height: calc(100vh - 50px);
-          width: calc(100vw - 60px);
+          width: 100vw;
+          background-size: cover;
         }
+      }
+      .title {
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        bottom: 100px;
+        transform: translate(-50%);
       }
     }
     .arrow-icon {
@@ -161,6 +200,7 @@ export default {
       transform: translateY(-50%);
       top: 50%;
       cursor: pointer;
+      z-index: 1000;
       &.left {
         left: 10px;
       }

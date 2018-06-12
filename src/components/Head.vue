@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    德境设计
+    <img src="../assets/logo.svg" />
   </div>
 </template>
 
@@ -19,8 +19,18 @@ export default {
 <style lang="scss" scoped>
 .header {
   height: 50px;
-  background: red;
+  background: #E5E0D6;
   line-height: 50px;
   text-align: center;
+  img {
+    padding-top: 18px;
+  }
+  @media (max-width: 600px) {
+    text-align: left;
+    img {
+      width: 50%;
+      padding-left: 10px;
+    }
+  }
 }
 </style>

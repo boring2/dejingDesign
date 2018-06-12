@@ -1,8 +1,10 @@
 <template>
   <div class="carousel">
-    <el-carousel v-on:change="aaa" ref="carousel">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h3 v-on:touchmove="ddd">我是图片{{ item }}</h3>
+    <el-carousel v-on:change="aaa" ref="carousel" indicator-position="none">
+      <el-carousel-item v-for="item in 1" :key="item">
+        <div class="home-png">
+          <!-- <img src="../assets/home-2.png" /> -->
+        </div>
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -32,7 +34,7 @@ export default {
       height: calc(100vh - 50px);
     }
   }
-  .carousel .el-carousel__item h3 {
+  .carousel .el-carousel__item {
     color: #475669;
     font-size: 14px;
     opacity: 0.75;
@@ -42,6 +44,10 @@ export default {
     @media (max-width: 600px) {
       line-height: calc(100vh - 50px);
     }
+    .home-png {
+      background: url("../assets/home-2.png") center;
+      height: 100%;
+    }
   }
 
   .el-carousel__item:nth-child(2n) {
@@ -50,5 +56,9 @@ export default {
 
   .el-carousel__item:nth-child(2n+1) {
      background-color: #d3dce6;
+  }
+
+  .el-carousel__arrow {
+    display: none;
   }
 </style>
